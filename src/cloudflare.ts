@@ -144,9 +144,7 @@ function storageFor(storage: any): RoomStorage {
  */
 export function createRoomClass(app: GhuriApp): new (ctx: any, env: Env) => DurableObject<Env> & RoomObject {
   if (typeof (app as any).run !== 'function') {
-    throw new ImproperlyConfigured(
-      '@ghuri/realtime needs @ghuri/core 0.1.0-alpha.1 or later (app.run()).',
-    )
+    throw new ImproperlyConfigured('@ghuri/realtime needs @ghuri/core 0.1.0-alpha.1 or later (app.run()).')
   }
 
   class GhuriRoom extends DurableObject<Env> implements RoomObject {
