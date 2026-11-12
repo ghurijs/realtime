@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.0-alpha.2
+
+- Permission classes receive the connection `scope` on the handshake (`request.scope`, with `room` and `connectionId` not yet resolved), as `PermissionLike` documents; before, it was missing.
+
 ## 0.1.0-alpha.1
 
 - Requires `@ghuri/core` 0.1.0-alpha.1 (and `@ghuri/auth` 0.1.0-alpha.1).

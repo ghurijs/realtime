@@ -1,6 +1,6 @@
 {
   "name": "@ghuri/realtime",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "Ghuri realtime: Channels-style WebSocket consumers and rooms on Durable Objects, portable to Node",
   "type": "module",
   "license": "MIT",
