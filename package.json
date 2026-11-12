@@ -1,0 +1,61 @@
+{
+  "name": "@ghuri/realtime",
+  "version": "0.1.0-alpha.0",
+  "description": "Ghuri realtime: Channels-style WebSocket consumers and rooms on Durable Objects, portable to Node",
+  "type": "module",
+  "license": "MIT",
+  "author": "Ghuri contributors",
+  "homepage": "https://github.com/ghurijs/realtime#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghurijs/realtime.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ghurijs/realtime/issues"
+  },
+  "keywords": ["ghuri", "django", "channels", "websocket", "realtime", "cloudflare", "durable-objects", "workers", "hono"],
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    "./cloudflare": { "types": "./dist/cloudflare.d.ts", "import": "./dist/cloudflare.js" },
+    "./node": { "types": "./dist/node.d.ts", "import": "./dist/node.js" },
+    "./testing": { "types": "./dist/testing.d.ts", "import": "./dist/testing.js" }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist", "README.md", "LICENSE"],
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check src test",
+    "format": "biome format --write src test"
+  },
+  "peerDependencies": {
+    "@ghuri/core": "^0.1.0-alpha.0",
+    "hono": "^4.13.0"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.6.6",
+    "@cloudflare/workers-types": "^5.20261110.0",
+    "@ghuri/auth": "^0.1.0-alpha.0",
+    "@ghuri/core": "^0.1.0-alpha.0",
+    "@ghuri/orm": "^0.1.0-alpha.0",
+    "@ghuri/rest": "^0.1.0-alpha.0",
+    "@hono/node-server": "^2.1.0",
+    "@types/node": "^24.0.0",
+    "@types/ws": "^8.5.12",
+    "esbuild": "^0.27.7",
+    "hono": "^4.13.0",
+    "miniflare": "^4.20260730.0",
+    "tsup": "^8.5.1",
+    "typescript": "~5.9.3",
+    "vitest": "^5.1.0"
+  },
+  "publishConfig": { "access": "public", "tag": "next" }
+}
