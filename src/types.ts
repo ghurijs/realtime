@@ -97,7 +97,10 @@ export interface AuthenticationLike {
 }
 export type AuthenticationClassLike = new () => AuthenticationLike
 
-/** The (structural) REST permission contract. Realtime passes `{ user, auth, method: 'GET', c, scope }`. */
+/**
+ * The (structural) REST permission contract. Realtime passes `{ user, auth, method: 'GET', c, scope }`
+ * (`scope.room` and `scope.connectionId` are still empty: the room is resolved after permissions).
+ */
 export interface PermissionLike {
   hasPermission?(request: any, view: any): boolean | Promise<boolean>
   message?: string | Record<string, unknown>

@@ -105,6 +105,18 @@ class PickyConsumer extends WebSocketConsumer {
   }
 }
 
+/** A permission that reads the scope (URL kwargs), as `PermissionLike` documents. */
+class NotLockedRoom {
+  message = 'This room is locked.'
+  hasPermission(request: { scope: Scope }) {
+    return request.scope.params.room !== 'locked' && request.scope.path.startsWith('/ws/guarded/')
+  }
+}
+
+class GuardedConsumer extends WebSocketConsumer {
+  static override permissionClasses = [NotLockedRoom]
+}
+
 class NoRoomConsumer extends WebSocketConsumer {
   static override room = () => null
 }
@@ -116,6 +128,7 @@ const urls = [
   path('ws/token/', TokenConsumer.asView()),
   path('ws/picky/', PickyConsumer.asView()),
   path('ws/none/', NoRoomConsumer.asView()),
+  path('ws/guarded/<slug:room>/', GuardedConsumer.asView()),
   path('announce/<slug:room>/', async (c) => {
     await channelLayer.groupSend(`chat.${c.req.param('room')}`, { type: 'chat.message', text: 'from http' })
     return json(c, { ok: true })
@@ -289,6 +302,14 @@ describe('consumers on the memory layer', () => {
     expect(await me.receiveJson()).toEqual({ note: 'hi ann' })
     await me.disconnect()
     expect(await ws('/ws/none/').connect()).toMatchObject({ connected: false, status: 403 })
+  })
+
+  it('passes the scope to permission classes', async () => {
+    const open = ws('/ws/guarded/lobby/', { user: ann })
+    expect((await open.connect()).connected).toBe(true)
+    await open.disconnect()
+    const locked = await ws('/ws/guarded/locked/', { user: ann }).connect()
+    expect(locked).toMatchObject({ connected: false, status: 403 })
   })
 
   it('authenticates tokens sent as a subprotocol and echoes a subprotocol back', async () => {

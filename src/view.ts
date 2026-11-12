@@ -158,15 +158,6 @@ export async function handshake(
     }
   }
 
-  for (const P of cls.permissionClasses ?? []) {
-    const perm = new P()
-    const ok = perm.hasPermission ? await perm.hasPermission({ user, auth, method: 'GET', c }, cls) : true
-    if (!ok) {
-      const message = typeof perm.message === 'string' ? perm.message : 'Permission denied.'
-      return reject(user.isAuthenticated ? 403 : 401, message)
-    }
-  }
-
   const query = Object.fromEntries(url.searchParams)
   if (settings.tokenSources.includes('query')) delete query.token
   const ua = c.req.header('user-agent')
@@ -189,6 +180,18 @@ export async function handshake(
   if (sessionKey) scope.sessionKey = sessionKey
   const authJson = jsonSafe(auth)
   if (authJson !== undefined) scope.auth = authJson
+
+  // Permissions see the scope too (room and connectionId are not resolved yet).
+  for (const P of cls.permissionClasses ?? []) {
+    const perm = new P()
+    const ok = perm.hasPermission
+      ? await perm.hasPermission({ user, auth, method: 'GET', c, scope }, cls)
+      : true
+    if (!ok) {
+      const message = typeof perm.message === 'string' ? perm.message : 'Permission denied.'
+      return reject(user.isAuthenticated ? 403 : 401, message)
+    }
+  }
 
   const room = await resolveRoom(cls, scope)
   if (room === null) return reject(403, 'No room for this connection.')
