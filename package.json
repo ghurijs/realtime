@@ -34,7 +34,7 @@
     "format": "biome format --write src test"
   },
   "peerDependencies": {
-    "@ghuri/core": "^0.1.0-alpha.0",
+    "@ghuri/core": "^0.1.0-alpha.1",
     "hono": "^4.13.0"
   },
   "dependencies": {
@@ -43,8 +43,8 @@
   "devDependencies": {
     "@biomejs/biome": "^2.6.6",
     "@cloudflare/workers-types": "^5.20261110.0",
-    "@ghuri/auth": "^0.1.0-alpha.0",
-    "@ghuri/core": "^0.1.0-alpha.0",
+    "@ghuri/auth": "^0.1.0-alpha.1",
+    "@ghuri/core": "^0.1.0-alpha.1",
     "@ghuri/orm": "^0.1.0-alpha.0",
     "@ghuri/rest": "^0.1.0-alpha.0",
     "@hono/node-server": "^2.1.0",

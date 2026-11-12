@@ -5,7 +5,8 @@ WebSockets for [Ghuri](https://github.com/ghurijs/ghuri), in the style of **Djan
 from anywhere with `channelLayer`. On Cloudflare Workers each room is a **Durable Object** using the WebSocket
 Hibernation API, so idle sockets cost nothing. On Node, rooms live in the process.
 
-> Status: alpha (ARCHITECTURE.md §16). Needs a `@ghuri/core` release with `app.run()` and `loadUser()`.
+> Status: alpha (ARCHITECTURE.md §16). Needs `@ghuri/core` 0.1.0-alpha.1 or later (and `@ghuri/auth` 0.1.0-alpha.1 for
+> `this.user.hasPerm()` and `refreshUser()`).
 
 ```sh
 npm install @ghuri/realtime
