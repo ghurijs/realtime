@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.0-alpha.1
+
+- Requires `@ghuri/core` 0.1.0-alpha.1 (and `@ghuri/auth` 0.1.0-alpha.1).
+
 ## 0.1.0-alpha.0
 
 - Initial alpha (ARCHITECTURE.md §16).
